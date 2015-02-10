@@ -31,6 +31,6 @@ dependencies {
 
     compile 'com.melnykov:floatingactionbutton:1.1.0'
 
-    compile 'com.jakewharton:butterknife:6.0.0'
+    compile 'com.jakewharton:butterknife:6.1.0'
 
 }
