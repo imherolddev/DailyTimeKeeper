@@ -1,19 +1,42 @@
 package com.imherolddev.dailytimekeeper.activities;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.imherolddev.dailytimekeeper.R;
+import com.imherolddev.dailytimekeeper.fragments.MainFragment;
+
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 
 
 public class MainActivity extends ActionBarActivity {
 
+    @InjectView(R.id.maintoolbar)
+    Toolbar maintoolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if (savedInstanceState == null) {
+
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.container, MainFragment.newInstance(), MainFragment.TAG)
+                    .commit();
+
+        }
+
+        ButterKnife.inject(this);
+
+        setSupportActionBar(maintoolbar);
+
     }
 
 
