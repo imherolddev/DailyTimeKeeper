@@ -26,6 +26,9 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/activity_vertical_margin"
         android:layout_gravity="bottom|end"
-        fab:fab_colorNormal="@color/bold_inverse"/>
+        android:src="@drawable/ic_add_white_24dp"
+        fab:fab_colorNormal="@color/bold_inverse"
+        fab:fab_colorPressed="@color/bold"
+        fab:fab_colorRipple="@color/bold"/>
 
 </FrameLayout>
