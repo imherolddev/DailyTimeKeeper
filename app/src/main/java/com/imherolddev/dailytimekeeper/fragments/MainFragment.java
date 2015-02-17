@@ -2,6 +2,7 @@ package com.imherolddev.dailytimekeeper.fragments;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,6 +20,9 @@ import com.imherolddev.dailytimekeeper.R;
 import com.imherolddev.dailytimekeeper.adapters.MainFragmentAdapter;
 import com.imherolddev.dailytimekeeper.listeners.ListenerUtility;
 import com.imherolddev.dailytimekeeper.models.ClockTime;
+import com.imherolddev.dailytimekeeper.persistence.CrudService;
+import com.imherolddev.dailytimekeeper.persistence.CrudServiceImpl;
+import com.imherolddev.dailytimekeeper.persistence.DBHelper;
 import com.melnykov.fab.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -44,12 +48,18 @@ public class MainFragment extends Fragment implements ListenerUtility {
 
     private boolean isClocked = false;
 
+    private CrudService crudService;
     private SharedPreferences sharedPreferences;
 
     private ArrayList<ClockTime> clockTimeList = new ArrayList<>();
 
     public static MainFragment newInstance() {
         return new MainFragment();
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        initDB();
     }
 
     @Override
@@ -74,7 +84,7 @@ public class MainFragment extends Fragment implements ListenerUtility {
         layoutManager = new LinearLayoutManager(activity);
         recyclerView.setLayoutManager(layoutManager);
 
-        adapter = new MainFragmentAdapter();
+        adapter = new MainFragmentAdapter(clockTimeList);
         recyclerView.setAdapter(adapter);
 
     }
@@ -150,6 +160,15 @@ public class MainFragment extends Fragment implements ListenerUtility {
         textView.setAdapter(arrayAdapter);
 
         return textView;
+
+    }
+
+    public void initDB() {
+
+        DBHelper dbHelper = new DBHelper(getActivity(), DBHelper.DB_NAME, null, 1);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        crudService = new CrudServiceImpl(db);
 
     }
 

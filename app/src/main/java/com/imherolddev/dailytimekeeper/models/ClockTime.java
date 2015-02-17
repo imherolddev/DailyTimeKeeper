@@ -7,13 +7,11 @@ public class ClockTime {
 
     private String jobName;
     private long time;
-    private int multiplier;
 
     public ClockTime(String jobName, long time, int multiplier) {
 
         this.setJobName(jobName);
         this.setTime(time);
-        this.setMultiplier(multiplier);
 
     }
 
@@ -33,11 +31,4 @@ public class ClockTime {
         this.time = time;
     }
 
-    public int getMultiplier() {
-        return multiplier;
-    }
-
-    public void setMultiplier(int multiplier) {
-        this.multiplier = multiplier;
-    }
 }

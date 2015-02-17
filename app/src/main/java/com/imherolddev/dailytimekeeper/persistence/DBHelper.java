@@ -8,6 +8,23 @@ import android.database.sqlite.SQLiteOpenHelper;
  * Created by imherolddev on 2/7/2015.
  */
 public class DBHelper extends SQLiteOpenHelper {
+
+    public static final String DB_NAME = "daily_time_keeper_db";
+
+    public static final String JOB_TABLE = "`jobs`";
+    public static final String JOB_ID_COL = "_jobID";
+    public static final int JOB_ID_COL_POS = 0;
+    public static final String JOB_NAME_COL = "jobName";
+    public static final int JOB_NAME_COL_POS = 1;
+
+    public static final String CLOCK_TIME_TABLE = "`clockTimes`";
+    public static final String CLOCK_TIME_ID_COL = "_clockID";
+    public static final int CLOCK_TIME_ID_COL_POS = 0;
+    public static final String CLOCK_TIME_JOB_ID_COL = "`clockTimeJobID";
+    public static final int CLOCK_TIME_JOB_ID_POS = 1;
+    public static final String CLOCK_TIME_COL = "`clockTime`";
+    public static final int CLOCK_TIME_COL_POS = 2;
+
     /**
      * Create a helper object to create, open, and/or manage a database.
      * This method always returns very quickly.  The database is not actually
@@ -34,6 +51,22 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
+        String createJobTable =
+
+                "CREATE TABLE IF NOT EXISTS " + JOB_TABLE +
+                        "(`" + JOB_ID_COL + "` INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                        "`" +   JOB_NAME_COL + "` VARCHAR(45) UNIQUE NOT NULL);";
+
+        String createClockTimeTable =
+
+                "CREATE TABLE IF NOT EXISTS " + CLOCK_TIME_TABLE +
+                        "(`" + CLOCK_TIME_ID_COL + "` INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                        "`" + CLOCK_TIME_JOB_ID_COL + "` INTEGER NOT NULL, " +
+                        "`" + CLOCK_TIME_COL + "` INTEGER NOT NULL);";
+
+        db.execSQL(createJobTable);
+        db.execSQL(createClockTimeTable);
+
     }
 
     /**
@@ -58,6 +91,6 @@ public class DBHelper extends SQLiteOpenHelper {
      */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        //persist existing, drop and recreate
     }
 }

@@ -5,10 +5,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.imherolddev.dailytimekeeper.models.ClockTime;
+
+import java.util.ArrayList;
+
 /**
  * Created by imherolddev on 2/7/2015.
  */
 public class MainFragmentAdapter extends RecyclerView.Adapter<MainFragmentAdapter.ViewHolder> {
+
+    private ArrayList<ClockTime> clockTimes;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -19,6 +25,10 @@ public class MainFragmentAdapter extends RecyclerView.Adapter<MainFragmentAdapte
             textView = v;
         }
 
+    }
+
+    public MainFragmentAdapter(ArrayList<ClockTime> clockTimes) {
+        this.clockTimes = clockTimes;
     }
 
     /**
@@ -75,7 +85,7 @@ public class MainFragmentAdapter extends RecyclerView.Adapter<MainFragmentAdapte
      */
     @Override
     public int getItemCount() {
-        return 0;
+        return clockTimes.size();
     }
 
 }
